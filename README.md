@@ -39,3 +39,7 @@ I am having you start off on the character creator page so you can create your f
 Open Mass Effect and begin to create a new character or oepn an old one. Begin tracking your decisions as you play or, if you're anytning like me, take months off between sessions and come back to your character saying:
 
 ![Alt Text](./gandalf_memory.gif)
+
+Instead you'll come back saying, 
+
+![Alt Text](./i-understand.gif)
