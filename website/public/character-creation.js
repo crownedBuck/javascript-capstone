@@ -141,7 +141,7 @@ const displayCharacter = (characters) => {
 
     console.log(character)
 
-    console.log(character.npc_name)
+    console.log(character.romanced)
 
     const legendaryOrClassic = character.game_type
 
@@ -180,7 +180,7 @@ const displayCharacter = (characters) => {
             break
         }
     }
-    const romance = character.romance
+    const romance = character.romanced
     for (const radioRomance of romanceRadios) {
         if (radioRomance.value === romance) {
             radioRomance.checked = true
@@ -195,9 +195,12 @@ const displayCharacter = (characters) => {
     oldClass.parentNode.replaceChild(classParagraph, oldClass)
     paragonSlider.value = character.paragon
     paragonLabel.innerHTML = character.paragon
+    console.log("paragon: ", character.paragon)
     renegadeSlider.value = character.renegade
+    console.log("renegade: ", character.renegade)
     renegadeLabel.innerHTML = character.renegade
     levelSlider.value = character.char_level
+    console.log('level: ', character.char_level)
     levelLabel.innerText = character.char_level
 
     console.log('charcter level: ', character.level)
@@ -597,6 +600,15 @@ const gameChanged = async () => {
     console.log('id="character_class_game_id" in gameChanged ', characterId)
 
     const selectedGame = document.querySelector('input[name="game"]:checked').value
+
+    const paragonSlider = document.getElementById('paragon')
+    const paragonLabel = document.getElementById('number_from_paragon_slider')
+    const renegadeSlider = document.getElementById('renegade')
+    const renegadeLabel = document.getElementById('number_from_renegade_slider')
+    const levelSlider = document.getElementById('level')
+    const levelLabel = document.getElementById('number_from_slider')
+    const faceCode = document.getElementById('face_code')
+    const raidoButtonsVersion = document.getElementsByName('gameType')
     
 
     console.log('selectedGame: ', selectedGame)
@@ -622,14 +634,6 @@ const gameChanged = async () => {
 
         let charExist = false;
         let exist = false;
-        const paragonSlider = document.getElementById('paragon')
-        const paragonLabel = document.getElementById('number_from_paragon_slider')
-        const renegadeSlider = document.getElementById('renegade')
-        const renegadeLabel = document.getElementById('number_from_renegade_slider')
-        const level = document.getElementById('level')
-        const levelLavel = document.getElementById('number_from_slider')
-        const radioVersionButtons = document.getElementsByName('gameType')
-        const faceCode = document.getElementById('face_code')
 
         console.log('before checkCharacter id in gameChanged' + characterId.value)
         if ((characterId) !== -1 && selectedGame !== undefined) {
@@ -658,6 +662,13 @@ const gameChanged = async () => {
         } else {
             if (!exist) {
                 // Character exists but doesn't exist for this game
+                paragonSlider.value = 0
+                paragonLabel.innerHTML = 0
+                renegadeLabel.innerHTML = 0
+                renegadeSlider.value = 0
+                levelSlider.value = 0
+                levelLabel.innerHTML = 0
+                faceCode.value = ""
                 if (sendDecisionsButton) {
                     // Destroy decision button logic
                     console.log('destorying decisions button')
@@ -708,23 +719,10 @@ const gameChanged = async () => {
                     console.log('something is wrong with the edit/submit button')
                     // console.log(createOrEditButton)
                 }
-            paragonSlider.value = 0
-            paragonLabel.innerHTML = 0
-            renegadeLabel.innerHTML = 0
-            renegadeSlider.value = 0
-            level.value = 0
-            levelLavel.innerHTML = 0
-            faceCode.value = ""
-
-            for (const radioButton of radioVersionButtons) {
-                if (radioButton.value === 'Classic') {
-                    radioButton.checked = true
-                    break
-                }
-            }
                 
             } else {
                 // Character exists for this game
+                getCharacter(bodyObj)
                 if (!sendDecisionsButton) {
                     // Create decision button logic
                     const decisionArea = document.getElementById('decision-button')
@@ -783,7 +781,7 @@ const gameChanged = async () => {
 
     // console.log(selectedGame)
     romancedCharacter(selectedGame)
-    getCharacter(bodyObj)
+
 }
 
 const silderMoving = () =>{

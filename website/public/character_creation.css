@@ -64,6 +64,9 @@ label {
     display: block;
     transition: 0.3s;
   }
+  #openNav {
+    font-size: 50px;
+  }
   
   .sidenav a:hover {
     color: #f1f1f1;

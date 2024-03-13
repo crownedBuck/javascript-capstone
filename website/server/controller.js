@@ -46,7 +46,7 @@ module.exports = {
 
 
         sequelize.query(`
-            SELECT c.char_name, o.origin, r.reputation, g.game AS gameId, gc.c_class, ro.npc_name, gt.game_type, ccg.paragon, ccg.renegade, c.id AS char_id, ccg.face_code, ccg.char_level
+            SELECT c.char_name, o.origin, r.reputation, g.game AS gameId, gc.c_class, ro.npc_name AS romanced, gt.game_type, ccg.paragon, ccg.renegade, c.id AS char_id, ccg.face_code, ccg.char_level
                 FROM character_class_game AS ccg 
                 JOIN character_creation AS c ON ccg.character_id = c.id
                 JOIN game AS g ON ccg.game = g.id

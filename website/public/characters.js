@@ -92,7 +92,7 @@ const sendDataAndNavigate = async (link) => {
             document.cookie = `characterCreatedForGame=${characterCreatedForGame}`
         
             // Log the href value to identify which link was clicked
-            console.log('Clicked link:', href);
+            // console.log('Clicked link:', href);
             console.log('characterId = ', characterId);
         
             // Wait for 100 milliseconds to ensure cookies are updated
