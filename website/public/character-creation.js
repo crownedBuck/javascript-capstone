@@ -4,6 +4,12 @@ let selectedGameCharacter;
 let characterCreatedCharacter;
 let characterCreatedForGameCharacter;
 
+const hiddenInput = document.getElementById('the_game_id');
+
+
+const firstCharId = document.getElementById('character_class_game_id')
+console.log('id="character_class_game_id" at top of page', firstCharId)
+
 cookies.forEach(cookie => {
     const [name, value] = cookie.split('=');
     switch (name.trim()) {
@@ -27,6 +33,8 @@ cookies.forEach(cookie => {
             break;
     }
 });
+
+// firstCharId = characterIdCharacter
 
 // const axios = require('axios')
 console.log("beginning of character-creation.js")
@@ -63,7 +71,13 @@ let firstTimeLoading = 0
 //     console.log("No radio button is checked.");
 // }
 
+// hiddenInput.addEventListener('change', function() {
+//     console.log('Value changed:', hiddenInput.value);
+//   });
+
 // DEBUG END
+
+
 
 const baseURLCharacterCreation = "http://localhost:4005/"
 
@@ -104,6 +118,10 @@ const isIdClassSelect = () => {
 
 
 const displayCharacter = (characters) => {
+    const hiddenCharId = document.getElementById('character_class_game_id')//document.getElementById('the_game_id')
+    console.log('id="character_class_game_id" in displayCharacter', hiddenCharId)
+    const hiddenGameId = document.getElementById('the_game_id')
+    console.log('id="the_game_id"" in displayChracter', hiddenGameId)
     const nameParagraph = document.createElement('label')
     const originParagraph = document.createElement('label')
     const reputationParagraph = document.createElement('label')
@@ -144,10 +162,17 @@ const displayCharacter = (characters) => {
     classParagraph.innerHTML = character.c_class 
     faceCode.value = character.face_code
 
+    console.log(hiddenCharId)
+    console.log(hiddenGameId)
+
+    hiddenCharId.value = character.char_id
+    hiddenGameId.value = character.gameId
+
+    console.log('hiddenCharId: ', hiddenCharId.value)
+    console.log('hiddenGameId ', hiddenGameId.value)
 
 
-
-    document.getElementById('character_class_game_id').value = character.id
+    console.log('id="character_class_game_id" in diplayCharacter (it seems to be changed here for some reason)', document.getElementById('character_class_game_id').value)
 
     for (const radioButton of raidoButtonsVersion) {
         if (radioButton.value === legendaryOrClassic) {
@@ -162,6 +187,8 @@ const displayCharacter = (characters) => {
         }
     }
 
+    console.log('dolphin: ', character)
+
     oldCharName.parentNode.replaceChild(nameParagraph, oldCharName)
     oldOrigin.parentNode.replaceChild(originParagraph, oldOrigin)
     oldReputation.parentNode.replaceChild(reputationParagraph, oldReputation)
@@ -173,14 +200,8 @@ const displayCharacter = (characters) => {
     levelSlider.value = character.char_level
     levelLabel.innerText = character.char_level
 
-    console.log(character.level)
+    console.log('charcter level: ', character.level)
 
-    const gameCheckbox = document.querySelector(`input[name="game"][value="${character.game}"]`)
-    if (gameCheckbox) {
-        gameCheckbox.checked = true;
-    } else {
-        console.error(`Element with ID ${character.game} not found`);
-    }
 
     const romancedSelect = document.querySelector('select[name="romance"]');
     if (romancedSelect) {
@@ -241,6 +262,7 @@ const createCharacter = body => {
             const characterId = response.data.characterId;
             console.log(`characterID in character-creation.js: ${characterId}`);
             document.getElementById('character_class_game_id').value = characterId;
+            console.log('id="character_class_game_id" in chreateCharacter. This makes sense to change here though', character_class_game_id)
             const games = document.getElementsByName('game')
 
             let selectedGame;
@@ -266,6 +288,10 @@ const createCharacter = body => {
 };
 
 const createNewGameForCharacter = (characterId, body) => {
+    console.trace()
+    console.log('createNewGameForCharacter')
+    const {char_id, version, level, romance, paragon, renegade, game, game_class, face_code} = body
+    console.log('char_id: ', char_id)
     return axios.post(`${baseURLCharacterCreation}add-game-character/${characterId}`, body)
         .then(response => {
             const characterId = response.data.characterId;
@@ -288,6 +314,7 @@ const createNewGameForCharacter = (characterId, body) => {
                 charId: characterId
             }
 
+
             getCharacter(bodyObj); // Pass characterId directly
         })
         .catch(error => {
@@ -300,6 +327,7 @@ const updateCharacter = (characterId, body) => {
     axios.put(`${baseURLCharacterCreation}update-character/${characterId}`, body)
     .then(response => {
         console.log('Character updated successfully:', response.data);
+        
         // Optionally, perform additional actions upon successful update
     })
     .catch(error => {
@@ -309,6 +337,7 @@ const updateCharacter = (characterId, body) => {
 }
 
 const checkCharacterForGame = (body) => { 
+    console.trace()
     console.log(body);
     const { charId, game } = body;
     return axios.get(`${baseURLCharacterCreation}check-character-game/${charId}?game=${game}`).then(response => {
@@ -454,7 +483,7 @@ const addNewCharacter = (event) => {
 const addDifferentGameToCharacter = (event) => {
     event.preventDefault()
     console.log("editCurrentCharacter has been click")
-    const charId = document.querySelector('input[type="hidden"][name="character_id"]').value
+    const charId = document.getElementById('character_class_game_id').value
     const level = document.getElementById('level').value;
     const romancedOption = document.querySelector(`select[name="romance"]`).value
     const version = document.querySelector('input[name="gameType"]:checked').value
@@ -509,20 +538,34 @@ const addDifferentGameToCharacter = (event) => {
 
         editButtonCreation.addEventListener('click', editCurrentCharacter)
     }
+
+    // Create Decisions Button
+
+    const decisionArea = document.getElementById('decision-button')
+    const decisionButton = document.createElement('button')
+    decisionButton.id = 'send_decisions_button'
+    decisionButton.type = 'button'
+    decisionButton.innerText = "Decisions"
+    decisionButton.addEventListener('click', sendDataAndNavigate)
+
+    decisionArea.appendChild(decisionButton)
+
+    console.log('Creating decisions button');
+    getCharacter()
     
 }
 
-const editCurrentCharacter = (event) => {
+const editCurrentCharacter = async (event) => {
     event.preventDefault()
     console.log("editCurrentCharacter has been click")
-    const charId = document.querySelector('input[type="hidden"][name="character_id"]').value
+    const charId = document.getElementById('character_class_game_id').value
     const level = document.getElementById('level').value;
     const romancedOption = document.querySelector(`select[name="romance"]`).value
     const version = document.querySelector('input[name="gameType"]:checked').value
     const paragon = document.getElementById('paragon').value;
     const renegade = document.getElementById('renegade').value;
     const faceCode = document.getElementById('face_code').value
-    const game = document.querySelector('input[name="game"]:checked').value
+    const game = document.querySelector('input[name="game"]:checked').value;
 
     console.log(`face_code in editCurrentChracter: ${faceCode}`)
 
@@ -538,7 +581,9 @@ const editCurrentCharacter = (event) => {
 
     }
 
-    updateCharacter(charId, bodyObj);
+    await updateCharacter(charId, bodyObj);
+
+    getCharacter(charId)
 
 }
 
@@ -547,19 +592,15 @@ const editCurrentCharacter = (event) => {
 const gameChanged = async () => {
     console.log("gameChanged clicked")
 
-    const games = document.getElementsByName('game')
+    
     const characterId = document.getElementById('character_class_game_id').value
+    console.log('id="character_class_game_id" in gameChanged ', characterId)
 
-    let selectedGame;
-    for (let i = 0; i < games.length; i++) {
-        if (games[i].checked) {
-            // If the radio button is checked, set selectedGame to the value of the checked radio button
-            selectedGame = games[i].value;
-            break; // Exit the loop once a checked radio button is found
-        }
-    }
+    const selectedGame = document.querySelector('input[name="game"]:checked').value
+    
 
     console.log('selectedGame: ', selectedGame)
+    console.log('selectedGame: ', document.querySelector)
 
     const bodyObj = {
         game: selectedGame,
@@ -590,11 +631,13 @@ const gameChanged = async () => {
         const radioVersionButtons = document.getElementsByName('gameType')
         const faceCode = document.getElementById('face_code')
 
-        // console.log('before checkCharacter id: ' + charId.value)
-        if ((characterId) !== -1) {
+        console.log('before checkCharacter id in gameChanged' + characterId.value)
+        if ((characterId) !== -1 && selectedGame !== undefined) {
             charExist = await checkCharacter(characterIdCharacter)
             exist = await checkCharacterForGame(bodyObj)
             console.log(`exist: ${exist}, charExist: ${charExist}`)
+        } else if (characterId === undefined) {
+            console.log('id="character_class_game_id" is undefined')
         }
         // console.log('before checkCharacter id: ' + charId.value)
 
@@ -728,10 +771,6 @@ const gameChanged = async () => {
                     // console.log(createOrEditButton)
                 }
 
-                if (selectClass) {
-                    getCharacter(bodyObj)
-                }
-
 
                 console.log('charId: ', characterIdCharacter)
             }
@@ -744,6 +783,7 @@ const gameChanged = async () => {
 
     // console.log(selectedGame)
     romancedCharacter(selectedGame)
+    getCharacter(bodyObj)
 }
 
 const silderMoving = () =>{
@@ -774,9 +814,10 @@ const closeButton = () => {
 const sendDataAndNavigate = () => {
     // Get the selected game value
     console.log("sending decisions")
-    const selectedGame = document.querySelector('input[name="game"]:checked').value
+    const selectedGame = document.querySelector('input[name="game"]:checked').value;
+    console.log('name="game" in sendDataAndNavigate', selectedGame)
 
-    // console.log(selectedGame)
+    
     
     // Get the character ID
     const characterId = document.getElementById('character_class_game_id').value
@@ -786,13 +827,15 @@ const sendDataAndNavigate = () => {
         game: selectedGame
     }
 
-    const characterCreated = checkCharacter(characterId)
+    console.log('Horse! charId: ', characterId)
 
     const characterCreatedForGame = checkCharacterForGame(bodyObj)
 
+    console.log(`pony! charId = ${characterId} & game = ${selectedGame}`)
 
+    const characterCreated = true
 
-    document.cookie = `characterId=${characterIdCharacter}`;
+    document.cookie = `characterId=${characterId}`;
     document.cookie = `selectedGame=${selectedGame}`
     document.cookie = `characterCreated=${characterCreated}`
     document.cookie = `characterCreatedForGame=${characterCreatedForGame}`
@@ -812,6 +855,7 @@ const sendDataAndNavigate = () => {
 const openingPage = () => {
     if (characterCreatedCharacter === 'true') {
         const currentClass = document.getElementById('class');
+    
     
         console.log('characterCreatedCharacter: ', characterCreatedCharacter)
     
@@ -836,7 +880,10 @@ const openingPage = () => {
         console.log('This character exists! ID: ' + characterIdCharacter);
     
         (async () => {
-            const number = characterIdCharacter;
+            const number = document.getElementById('character_class_game_id').value
+            console.log('id="character_class_game_id" in openingPage ', number)
+
+
             for (let i = 0; i < 3; i++) {
                 const iPlusOne = i + 1;
                 const bodyObj = {
@@ -910,7 +957,7 @@ if (firstTimeLoading === 0) {
 
 const bobby = document.getElementById('character_class_game_id').value = characterIdCharacter
 
-console.log('bobby', bobby)
+console.log('bobby. id="character_class_game_id at bottom of page', bobby)
 
 console.log('characterCreatedCharacter = ' + characterCreatedCharacter);
 console.log('Type of characterCreatedCharacter:', typeof characterCreatedCharacter);

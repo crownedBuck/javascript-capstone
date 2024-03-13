@@ -1,11 +1,27 @@
-body {
-    background-color: black;
+h1 {
+
     color: white;
     font-family: AndaleMono;
 }
 
+body {
+  background-color: black;
+font-family: AndaleMono;
+}
+
 #openNav {
   font-size: 50px;
+}
+
+
+.pseudolink { 
+   color:blue; 
+   text-decoration:underline; 
+   cursor:pointer; 
+   }
+
+ol {
+  color: white;
 }
 
 .sidenav {

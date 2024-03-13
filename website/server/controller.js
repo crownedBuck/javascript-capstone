@@ -46,7 +46,7 @@ module.exports = {
 
 
         sequelize.query(`
-            SELECT c.char_name, o.origin, r.reputation, g.game, gc.c_class, ro.npc_name, gt.game_type, ccg.paragon, ccg.renegade, c.id, ccg.face_code, ccg.char_level
+            SELECT c.char_name, o.origin, r.reputation, g.game AS gameId, gc.c_class, ro.npc_name, gt.game_type, ccg.paragon, ccg.renegade, c.id AS char_id, ccg.face_code, ccg.char_level
                 FROM character_class_game AS ccg 
                 JOIN character_creation AS c ON ccg.character_id = c.id
                 JOIN game AS g ON ccg.game = g.id
@@ -87,26 +87,64 @@ module.exports = {
 
         console.log(`game in controller.js: ${gameId}`)
         console.log(`char in controller.js: ${charId}`)
-    
-        sequelize.query(`
-        SELECT EXISTS (
-            SELECT 1
-            FROM character_class_game AS ccg
-            JOIN character_creation AS cc ON ccg.character_id = cc.id
-            JOIN game AS g ON ccg.game = g.id
-            WHERE ccg.character_id = ${Number(charId)} 
-            AND g.game = ${Number(gameId)}
-        ) AS associated;
-         
-        `).then(result => { // AS associated checks if it exists
-            const isAssociated = result[0][0].associated; // Extract the boolean value from the result
-            console.log('result', result)
-            console.log(isAssociated)
-            res.status(200).json({ associated: isAssociated });
-        }).catch(error => {
-            console.error("Error checking character:", error);
-            res.sendStatus(500);
-        });
+
+        if (Number(gameId) === 1) {
+            sequelize.query(`
+                SELECT EXISTS (
+                    SELECT 1
+                    FROM character_class_game AS ccg
+                    JOIN character_creation AS cc ON ccg.character_id = cc.id
+                    JOIN game_one_decisions AS god ON ccg.id = god.character_class_game_id
+                    JOIN game AS g ON ccg.game = g.id
+                    WHERE ccg.id = (SELECT id FROM character_class_game WHERE game = ${Number(gameId)} AND character_id = ${Number(charId)})
+                ) AS associated;`).then(result => { // AS associated checks if it exists
+                const isAssociated = result[0][0].associated; // Extract the boolean value from the result
+                console.log('result', result)
+                console.log(isAssociated)
+                res.status(200).json({ associated: isAssociated });
+            }).catch(error => {
+                console.error("Error checking character:", error);
+                res.sendStatus(500);
+            });
+        } else if (Number(gameId) === 2) {
+            sequelize.query(`
+                SELECT EXISTS (
+                    SELECT 1
+                    FROM character_class_game AS ccg
+                    JOIN character_creation AS cc ON ccg.character_id = cc.id
+                    JOIN game_two_decisions AS god ON ccg.id = god.character_class_game_id
+                    JOIN game AS g ON ccg.game = g.id
+                    WHERE ccg.id = (SELECT id FROM character_class_game WHERE game = ${Number(gameId)} AND character_id = ${Number(charId)})
+                ) AS associated;
+            `).then(result => { // AS associated checks if it exists
+                const isAssociated = result[0][0].associated; // Extract the boolean value from the result
+                console.log('result', result)
+                console.log(isAssociated)
+                res.status(200).json({ associated: isAssociated });
+            }).catch(error => {
+                console.error("Error checking character:", error);
+                res.sendStatus(500);
+            });
+        } else if (Number(gameId) === 3) {
+            sequelize.query(`
+                SELECT EXISTS (
+                    SELECT 1
+                    FROM character_class_game AS ccg
+                    JOIN character_creation AS cc ON ccg.character_id = cc.id
+                    JOIN game_three_decisions AS god ON ccg.id = god.character_class_game_id
+                    JOIN game AS g ON ccg.game = g.id
+                    WHERE ccg.id = (SELECT id FROM character_class_game WHERE game = ${Number(gameId)} AND character_id = ${Number(charId)})
+                ) AS associated;
+            `).then(result => { // AS associated checks if it exists
+                const isAssociated = result[0][0].associated; // Extract the boolean value from the result
+                console.log('result', result)
+                console.log(isAssociated)
+                res.status(200).json({ associated: isAssociated });
+            }).catch(error => {
+                console.error("Error checking character:", error);
+                res.sendStatus(500);
+            });
+        }
 
     },
 
@@ -400,6 +438,7 @@ module.exports = {
         console.log(req.query);
 
         console.log(`game in controller.js: ${game}`)
+        console.log(`checkCharacterGame called`)
     
         sequelize.query(`
             SELECT EXISTS (

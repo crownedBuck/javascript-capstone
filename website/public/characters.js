@@ -43,51 +43,51 @@ const closeBtn = sideNav.querySelector('.closebtn')
 
 // console.log("Print 1")
 
-const allCharacters = (body) => {
+const allCharacters = async (body) => {
     // console.log('allCharacters is working');
     // console.log(body)
     // Assuming 'orderedList' is the <ul> element where you want to append the <li> items
     const orderedList = document.getElementById('list-of-char');
 
     body.forEach((character) => {
-        let list = document.createElement('li');
-        let link = document.createElement('a');
-        link.href = 'character-creation.html' //`${baseURLCharacterCreation}${character.id}`;
-        link.name = "characters"
+        const list = document.createElement('li');
+        const link = document.createElement('a');
+
+        //`${baseURLCharacterCreation}${character.id}`;
+        link.name = "character-creation.html"
         link.value = `${character.id}`
-        list.class = "characters"
+        link.className = "pseudolink"
         link.innerText = `${character.char_name}`;
+        link.href = 'character-creation.html'
+
+
+        link.addEventListener('click', sendDataAndNavigate(character.id), false)
         list.appendChild(link); // Append the link to the list item
         orderedList.appendChild(list); // Append the list item to the ordered list
     });
 
+    
+
     characterCreationLink.href = 'character-creation.html'
 
-    sendDataAndNavigate()
 };
 
-const sendDataAndNavigate = () => {
-    // Get the selected game value
-    console.log("sending decisions")
-    const characterLinks = document.querySelectorAll('a[name="characters"]');
 
-    // Attach event handler to each anchor element
-    characterLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            // Prevent the default behavior of the anchor element
-            event.preventDefault()
+
+const sendDataAndNavigate = async (link) => {
+    // Get the selected game value
+    event.preventDefault()
+    console.log("sending decisions")
+
         
-            // Get the href attribute value of the clicked anchor element
-            const href = this.getAttribute('href');
-        
-            const selectedGame = false;
-            const characterId = link.value;
+    const selectedGame = false;
+            const characterId = await link;
             const characterCreated = true;
             const characterCreatedForGame = false;
         
             // Set cookies
-            document.cookie = `characterId=${characterId}`
-            document.cookie = `selectedGame=${selectedGame}`
+            document.cookie = await `characterId=${characterId}`
+            document.cookie = `selectedGame=1`
             document.cookie = `characterCreated=${characterCreated}`
             document.cookie = `characterCreatedForGame=${characterCreatedForGame}`
         
@@ -96,46 +96,14 @@ const sendDataAndNavigate = () => {
             console.log('characterId = ', characterId);
         
             // Wait for 100 milliseconds to ensure cookies are updated
-            setTimeout(() => {
-                // Read cookies
-                const cookies = document.cookie.split('; ');
-                let characterIdCharacters;
-                let selectedGameCharacters;
-                let characterCreatedCharacters;
-                let characterCreatedForGameCharacters;
-        
-                cookies.forEach(cookie => {
-                    const [name, value] = cookie.split('=');
-                    switch (name.trim()) {
-                        case 'characterId':
-                            characterIdCharacters = value;
-                            console.log('characterId: ' + characterIdCharacters);
-                            break;
-                        case 'selectedGame':
-                            selectedGameCharacters = value;
-                            console.log('selectedGame: ' + selectedGameCharacters);
-                            break;
-                        case 'characterCreated':
-                            characterCreatedCharacters = value;
-                            console.log('characterCreated: ' + characterCreatedCharacters);
-                            break;
-                        case 'characterCreatedForGame':
-                            characterCreatedForGameCharacters = value;
-                            console.log('characterCreatedForGame: ' + characterCreatedForGameCharacters);
-                            break;
-                        default:
-                            break;
-                    }
-                });
-            });
 
-                window.location.href = href;
 
-        });
-    })
-
+                
 
 }
+
+
+
 
 const getCharacters = () => {
     return axios.get(`${baseURL}`)
