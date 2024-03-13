@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="decisions.css">
+    <title>Mass Effect 3 Decisions</title>
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a class="closebtn"></a>
+        <a href="characters.html">Characters</a>
+    </div>
+
+    <span id="openNav">&#9776</span>
+    <h1>Mass Effect 3 Decisions</h1>
+    <br>
+    <form id="mass-effect-3">
+        <input type="submit" id="mass-effect3">
+        <input type="hidden" id="game_id" name="game_id" value="3">
+        <input type="hidden" id="character_id_decisions" name="character_id" value="${characterId}">
+        <br>
+        <input type="checkbox" id="punch-al-jilani-checkbox">
+        <label id="punch-al-jilani">
+            Punched Al-Jilani
+        </label>
+        <section>
+            <label id="recruit-doctor">
+                Which doctor did you recruit?
+            </label>
+            <br>
+            <input type="radio" id="chakwas" name="doctor" value="chakwas" checked>
+            <label>Chakwas</label>
+            <input type="radio" id="michel" name="doctor" value="michel">
+            <label>Michel</label>
+        </section>
+        <input type="checkbox" id="pardoned-daniels-donnelly">
+        <label>
+            Pardoned Daniels and Donnelly
+        </label>
+        <br>
+        <input type="checkbox" id="eve-survived">
+        <label>
+            Eve survived
+        </label>
+        <br>
+        <input type="checkbox" id="genophage-cured">
+        <label>
+            Genophage cured
+        </label>
+        <br>
+        <input type="checkbox" id="mordin-died">
+        <label>
+            Mordin died
+        </label>
+        <br>
+        <input type="checkbox" id="kissed-aria">
+        <label>
+            Kissed Aria
+        </label>
+        <br>
+        <input type="checkbox" id="saved-omega-civilians">
+        <label>
+            Omega civilians saved
+        </label>
+        <br>
+        <input type="checkbox" id="ann-bryson=unharmed">
+        <label>
+            Ann Bryson unharmed
+        </label> 
+        <br>
+        <input type="checkbox" id="paragon-ashley-kaidan">
+        <lable>
+            Paragon actions taken while Ashley/Kaidan were in the Citadel
+        </lable>
+        <br>
+        <input type="checkbox" id="garrus-match">
+        <label>
+            Garrus won the shooting match
+        </label>
+        <br>
+        <input type="checkbox" id="edi-joker-relationship">
+        <label>
+            EDI and Joker started a relationship
+        </label>
+        <br>
+        <input type="checkbox" id="saved-bau">
+        <label>
+            Bau saved
+        </label>
+        <br>
+        <input type="checkbox" id="saved-kahje">
+        <label>
+            Kahje saved
+        </label>
+        <br>
+        <input type="checkbox" id="grissom-academy">
+        <label>
+            Grissom Academy saved
+        </label>
+        <br>
+        <input type="checkbox" id="grissom-students">
+        <label>
+            Grissom Students sent into battle
+        </label>
+        <br>
+        <input type="checkbox" id="rachni-queen-survived">
+        <label>
+            Rachni Queen survived
+        </label>
+        <br>
+        <input type="checkbox" id="grunt-died" value="true">
+        <label>
+            Grunt survived
+        </label>
+        <br>
+        <input type="checkbox" id="ashley-kaidan-survived" value="true">
+        <label>
+            Ashley/Kaidan survived the coup
+        </label>
+        <br>
+        <input type="checkbox" id="samara-survived" value="true">
+        <label>
+            Samara survived
+        </label>
+        <br>
+        <input type="checkbox" id="falere-spared" value="true">
+        <label>
+            Falere spared
+        </label>
+        <br>
+        <input type="checkbox" id="gavin-archer" value="true">
+        <label>
+            Gavin Archer died
+        </label>
+        <br>
+        <input type="checkbox" id="saved-riley" value="true">
+        <label>
+            Riley saved
+        </label>
+        <br>
+        <input type="checkbox" id="balak-spared" value="true">
+        <label>
+            Balak spared
+        </label>
+        <section>
+            <label id="conrad-verner">What happened to Conrad Verner?</label>
+            <br>
+            <input type="radio" id="didnt-meet-him" name="conrad" value="did not talk to him" checked>
+                <label for="didnt-meet-him">
+                    Didn't meet him
+                </label>
+            <input type="radio" id="set-him-streight" name="conrad" value="set him streight">
+                <label for="set-him-streight">
+                    Set him streight
+                </label>
+            <input type="radio" id="died" name="conrad" value="died">
+                <label for="died">
+                    Died
+                </label>
+        </section>
+        <input type="checkbox" id="rescued-legion" value="true">
+        <lable>
+            Legion rescued
+        </lable>
+        <br>
+        <input type="checkbox" id="destroyed-reaper-code" value="true">
+        <lable>
+            Reaper code infection destroyed
+        </lable>
+        <br>
+        <input type="checkbox" id="geth-jamming-tower" value="true">
+        <label>
+            Geth jamming tower taken down
+        </label>
+        <br>
+        <input type="checkbox" id="memory-shard" value="true">
+        <lable>
+            Javik used the memory shard?
+        </lable>
+        <br>
+        <input type="checkbox" id="saved-admiral-koris" value="true">
+        <lable>
+            Admiral Koris saved
+        </lable>
+        <br>
+        <input type="checkbox" id="quarians-survived" value="true">
+        <label>
+            Quarians survived
+        </label>
+        <br>
+        <input type="checkbox" id="taliDeath" value="true">
+        <label>
+            Tali died
+        </label>
+        <br>
+        <input type="checkbox" id="geth-intelligent" value="true">
+        <label>
+            Geth become more intelligent
+        </label>
+        <br>
+        <input type="checkbox" id="javik-liara-argument" value="true">
+        <label>
+            Javik and Liara argument resolved
+        </label>
+        <br>
+        <input type="checkbox" id="brooks-incarcerated" value="true">
+        <label>
+            Brooks incarcerated
+        </label>
+        <br>
+        <input type="checkbox" id="miranda-survived" value="true">
+        <label>
+            Miranda survived Horizon
+        </label>
+        <br>
+        <input type="checkbox" id="cortez-survived" value="true">
+        <label>
+            Cortez survived the Hammer landing
+        </label>
+        <section>
+            <label>Which ending did you choose?</label>
+            <br>
+            <input type="radio" id="control" name="ending" value="conrol" value="true" checked>
+            <label>
+                Conrol
+            </label>
+            <input type="radio" id="synthesis" name="ending" value="synthesis">
+            <label>
+                Syntesis
+            </label>
+            <input type="radio" id="destroy" name="ending" value="destroy">
+            <label>
+                Destroy
+            </label>
+            <input type="radio" id="refusal" name="ending" value="refusal">
+            <label>
+                Refusal
+            </label>
+        </section>
+    </form>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="mass-effect-3-decisions.js"></script>
+</body>
+</html>

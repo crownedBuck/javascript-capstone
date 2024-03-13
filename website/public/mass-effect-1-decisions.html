@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="decisions.css">
+    <title>Mass Effect 1 Decisions</title>
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a class="closebtn"></a>
+        <a href="characters.html">Characters</a>
+    </div>
+
+
+    <span id="openNav">&#9776</span>
+    <h1>Mass Effect 1 Decisions</h1>
+    <br>
+    <form id="mass-effect-1">
+        <input type="submit" id="mass-effect1">
+        <br>
+        <input type="hidden" id="game_id_1" name="game_id_1" value="1">
+        <input type="hidden" id="character_id_decisions" name="character_id">
+
+        <br>
+        <input type="checkbox" id="fist-check" value="true">
+        <label id="fist">Spared Fist</label>
+        <br>
+        <input type="checkbox" id="helped-jenna-check" value="true">
+        <label id="helped-jenna"> Helped Jenna in Chora's Den</label>
+        <br>
+        <section>
+            <label id="conrad-verner">What happened to Conrad Verner?</label>
+            <br>
+            <input type="radio" id="didnt-meet-him" name="conrad" value="did not talk to him" checked>
+                <label for="didnt-meet-him">
+                    Didn't meet him
+                </label>
+            <input type="radio" id="set-him-streight" name="conrad" value="set him streight">
+                <label for="set-him-streight">
+                    Set him streight
+                </label>
+            <input type="radio" id="died" name="conrad" value="died">
+                <label for="died">
+                    Died
+                </label>
+        </section>
+        <input type="checkbox" id="rescued-burns-checkbox" value="true">
+        <label id="rescued-burns">Rescued Burns from MSV Ontario</label>
+        <br>
+        <input type="checkbox" id="kyle-surrendered-checkbox" value="true">
+        <label id="kyle-surrendered">Convinced Kyle to surrender on Presrop</label>
+        <br>
+        <input type="checkbox" id="helena-survived-checkbox" value="true">
+        <label id="helena-survived">Helena Blake survived</label>
+        <br>
+        <input type="checkbox" id="punch-al-jilani-checkbox" value="true">
+        <label id="punch-al-jilani">
+            Punched Al-Jilani
+        </label>
+        <br>
+        <input type="checkbox" id="recovered-OSD-feros-checkbox" value="true">
+        <label id="recovered-OSD">
+            Recovered Hossle's OSD on Feros
+        </label>
+        <br>
+        <input type="checkbox" id="shiala-survived-checkbox" value="true">
+        <label id="shiala-survived">
+            Shiala survived Feros
+        </label>
+        <br>
+        <input type="checkbox" id="save-zhus-hope-colonists" value="true">
+        <label>
+            Colonists at Zhu's Hope survived
+        </label>
+        <br>
+        <input type="checkbox" id="gianna-not-exposed" value="true">
+        <label>
+            Exposed Gianna to Parasini
+        </label>
+        <br>
+        <input type="checkbox" id="rachni-queen-survived" value="true">
+        <label>
+            Rachni Queen survived
+        </label>
+        <br>
+        <input type="checkbox" id="wrex-family-armor" value="true">
+        <label>
+            Retrieved Wrex's family armor
+        </label>
+        <br>
+        <input type="checkbox" id="tali-geth-data" value="true">
+        <label>
+            Gave Tali the geth data found on Solcrum
+        </label>
+        <br>
+        <input type="checkbox" id="jacob-life" value="true">
+        <label>
+            Turned off Jacob's life support
+        </label>
+        <br>
+        <input type="checkbox" id="saved-x57-hostages" value="true">
+        <label>
+            Saved the X57 hostages
+        </label>
+        <br>
+        <input type="checkbox" id="wrex-survived" value="true">
+        <label>
+            Wrex survived Virmire
+        </label>
+        <br>
+        <input type="checkbox" id="rana-survived" value="true">
+        <label>
+            Rana survived Virmire
+        </label>
+        <br>
+        <input type="checkbox" id="kirrahe-survived" value="true">
+        <lable>
+            Captain Kirrahe survived Virmire
+        </lable>
+        <br>
+        <section>
+            <label id="survived-virmire-companion">Who did you save on Virmire?</label>
+            <br>
+            <input type="radio" id="ashley" name="survived-virmire-companion" value="Ashley" checked>
+                <label for="Ashley">
+                    Ashley
+                </label>
+            <input type="radio" id="kaidan" name="survived-virmire-companion" value="Kaiden">
+                <label for="Kaiden">
+                    Kaidan
+                </label>
+        </section>
+        <input type="checkbox" id="saved-destiny-ascension">
+        <label>
+            Saved the Destiny Ascension
+        </label>
+        <br>
+        <section>
+            <label id="concil">
+                Who did you place on the council to represent humans?
+            </label>
+            <br>
+            <input type="radio" id="anderson" name="council" value="Anderson" checked>
+                <label for="Anderson">Anderson</label>
+            <input type="radio" id="udina" name="council" value="Udina">
+                <label for="Udina">Udina</label>
+        </section>
+        <input type="checkbox" id="asari-writings" value="true">
+        <label>Found at least 10 asari writings</label>
+        <br>
+        <input type="checkbox" id="elkoss-combine-armory" value="true">
+        <label>Got the Elkoss Combine Armory license</label>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="mass-effect-1-decisions.js"></script>
+    </form>
+</body>
+</html>

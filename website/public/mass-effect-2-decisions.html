@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="decisions.css">
+    <title>Mass Effect 2 Decisions</title>
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a class="closebtn"></a>
+        <a href="characters.html">Characters</a>
+    </div>
+
+    <span id="openNav">&#9776</span>
+    <h1>Mass Effect 2 Decisions</h1>
+    <br>
+    <form id="mass-effect-2">
+        <input type="submit" id="mass-effect2">
+        <input type="hidden" id="game_id" name="game_id" value="2">
+        <input type="hidden" id="character_id_decisions" name="character_id" value="${characterId}">
+        <br>
+        <input type="checkbox" id="punch-al-jilani-checkbox" value="true">
+        <label id="punch-al-jilani">
+            Punched Al-Jilani
+        </label>
+        <br>
+        <input type="checkbox" id="graybox-kept" value="true">
+        <label>
+            Told Kasumi to keep the graybox
+        </label>
+        <br>
+        <input type="checkbox" id="niftu-cal-survived" value="true">
+        <label>
+            Niftu Cal survived his drug trip
+        </label>
+        <br>
+        <input type="checkbox" id="kal-reegar-survived" value="true">
+        <label>
+            Kal'Reegar survived Haestrom
+        </label>
+        <br>
+        <input type="checkbox" id="kasumi-loyalty" value="true">
+        <label>
+            Secured Kasumi's loyalty
+        </label>
+        <br>
+        <input type="checkbox" id="zaeed-loyalty" value="true">
+        <label>
+            Secured Zaeed's loyalty
+        </label>
+        <br>
+        <input type="checkbox" id="miranda-loyalty" value="true">
+        <label>
+            Secured Miranda's loyalty
+        </label>
+        <br>
+        <input type="checkbox" id="jacob-loyalty" value="true">
+        <label>
+            Secured Jacob's loyalty
+        </label>
+        <br>
+        <section>
+            <label id="ronald-taylor-fate">
+                What happened to Ronald Taylor?
+            </label>
+            <br>
+            <input type="radio" id="tried" name="ronald-taylor" value="tried" checked>
+                <label for="tried">He was tried by the Alliance</label>
+            <input type="radio" id="offed-himself" name="ronald-taylor" value="offed_himself">
+                <label for="offed-himself">He offed himself</label>
+            <input type="radio" id="crew-killed" name="ronald-taylor" value="killed_by_crew">
+                <label for="crew-killed">He was killed by his crew</label>
+        </section>
+        <section>
+            <label id="conrad-verner">What happened to Conrad Verner?</label>
+            <br>
+            <input type="radio" id="didnt-meet-him" name="conrad" value="did not talk to him" checked>
+                <label for="didnt-meet-him">
+                    Didn't meet him
+                </label>
+            <input type="radio" id="set-him-streight" name="conrad" value="set him streight">
+                <label for="set-him-streight">
+                    Set him streight
+                </label>
+            <input type="radio" id="died" name="conrad" value="died">
+                <label for="died">
+                    Died
+                </label>
+        </section>
+        <br>
+        <input type="checkbox" id="samara-loyalty" value="true">
+        <label>
+            Secured Samara's loyalty
+        </label>
+        <br>
+        <input type="checkbox" id="mordin-loyalty" value="true">
+        <label>
+            Secured Mordin's loyalty
+        </label>
+        <br>
+        <input type="checkbox" id="moridin-killed-maelon" value="true">
+        <label>
+            Mordin killed Maelon
+        </label>
+        <br>
+        <input type="checkbox" id="maelon-data-survived" value="true">
+        <label>
+            Maelon's data survived
+        </label>
+        <br>
+        <input type="checkbox" id="grunt-loyalty" value="true">
+        <label>
+            Secured Grunt's loyalty
+        </label>
+        <br>
+        <input type="checkbox" id="thresher_maw-killed" value="true">
+        <label>
+            Thresher maw died
+        </label>
+        <br>
+        <input type="checkbox" id="jack-loyalty" value="true">
+        <label>
+            Secured Jack's loyalty
+        </label>
+        <br>
+        <input type="checkbox" id="miranda-jack-resolved" value="true">
+        <label>
+            Miranda and Jack resolved their differences
+        </label>
+        <br>
+        <input type="checkbox" id="tali-loyalty" value="true">
+        <label>
+            Secure Tali's loyalty
+        </label>
+        <br>
+        <input type="checkbox" id="rael-zorah-treason" value="true">
+        <label>
+            Rael'Zorah's treason revealed
+        </label>
+        <br>
+        <input type="checkbox" id="tali-exile" value="true">
+        <label>
+            Tali exiled
+        </label>
+        <br>
+        <input type="checkbox" id="garrus-loyalty" value="true">
+        <label>
+            Secure Garrus' loyalty
+        </label>
+        <br>
+        <input type="checkbox" id="sidonis-spared" value="true">
+        <label>
+            Sidonis spared
+        </label>
+        <br>
+        <input type="checkbox" id="thane-loyalty" value="true">
+        <label>
+            Secured Thane's loyalty
+        </label>
+        <br>
+        <input type="checkbox" id="gave-cerberus-legion" value="true">
+        <label>
+            Gave Legion to Cerberus
+        </label>
+        <br>
+        <input type="checkbox" id="legion-loyalty" value="true">
+        <label>
+            Secured Legion's loyalty
+        </label>
+        <br>
+        <input type="checkbox" id="geth-heretics-destroyed" value="true">
+        <label>
+            Destroyed the Geth Heretics
+        </label>
+        <br>
+        <input type="checkbox" id="tali-legion-resolution" value="true">
+        <label>
+            Tali and Legion resolved their differences
+        </label>
+        <br>
+        <input type="checkbox" id="kelly-fish" value="true">
+        <label>
+            Kelly offerd to take care of Shepard's fish
+        </label>
+        <section>
+            <label>Which companions died?</label>
+            <br>
+            <input type="checkbox" id="garrus-died" value="true">
+            <label>
+                Garrus died
+            </label>
+            <input type="checkbox" id="grunt-died" value="true">
+            <label>
+                Grunt died
+            </label>
+            <input type="checkbox" id="jack-died" value="true">
+            <label>
+                Jack died
+            </label>
+            <input type="checkbox" id="jacob-died" value="true">
+            <label>
+                Jacob died
+            </label>
+            <input type="checkbox" id="kasumi-died" value="true">
+            <label>
+                Kasumi died
+            </label>
+            <input type="checkbox" id="legion-died" value="true">
+            <label>
+                Legion died
+            </label>
+            <input type="checkbox" id="miranda-died" value="true">
+            <label>
+                Maranda died
+            </label>
+            <input type="checkbox" id="mordin-died" value="true">
+            <label>
+                Mordin died
+            </label>
+            <input type="checkbox" id="samara-died" value="true">
+            <label>
+                Samara died
+            </label>
+            <input type="checkbox" id="tali-died" value="true">
+            <label>
+                Tali died
+            </label>
+            <input type="checkbox" id="thane-died" value="true">
+            <label>
+                Thane died
+            </label>
+            <input type="checkbox" id="zaeed-died" value="true">
+            <label>
+                Zaeed died
+            </label>
+        </section>
+        <input type="checkbox" id="normandy-survied" value="true">
+        <label>
+            Normandy crew survived after being kidnapped
+        </label>
+        <br>
+        <input type="checkbox" id="collector-staion" value="true">
+        <label>
+            Collector Station destroyed
+        </label>
+        <br>
+        <input type="checkbox" id="prejek-paddlefish" value="true">
+        <label>
+            Prejek Paddlefish died
+        </label>
+        <br>
+    </form>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="mass-effect-2-decisions.js"></script>
+</body>
+</html>

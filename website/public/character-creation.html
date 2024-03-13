@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mass Effect Character Tracker</title>
+    <link rel="stylesheet" href="character_creation.css">
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a class="closebtn"></a>
+        <a href="characters.html">Characters</a>
+    </div>
+
+    <span id="openNav">&#9776</span>
+    <h1>Mass Effect Character Creator</h1>
+    <section class="titles">
+        
+        <input type="hidden" id="character_class_game_id" name="character_id">
+        <g class="">
+            <div class="title">
+            <input type="radio" class="game radio" id="game1" name="game" value="1" checked>
+                <label for="mass_effect_1">
+                    Mass Effect 1
+                </label>
+            </div>
+            <div class="title">
+            <input type="radio" class="game radio" id="game2" name="game" value="2">
+                <label for="mass_effect_2">
+                    Mass Effect 2
+                </label>
+            </input>
+            </div>
+            <div class="title">
+            <input type="radio" class="game radio" id="game3" name="game" value="3">
+                <label for="mass_effect_3">
+                    Mass Effect 3
+                </label>
+            </input>
+            </div>
+        </g>
+    </section>
+    <section id="decision-button">
+
+    </section class="vertical-space">
+    <form>  
+        <label>Name: </label>
+        <input type="text" id="char_name" required class="input-larger">
+        <br>
+        <section class="horizontal-space">
+            <label for="origin">Origin: </label>
+            <select id="origin" name="origin"  class="input-larger" required>
+                <option value="Spacer">Spacer</option>
+                <option value="Colonist">Colonist</option>
+                <option value="Earthborn">Earthborn</option>
+            </select>
+        </section>  
+        <section class="horizontal-space">
+        <label for="reputation" name="reputation">Reputation: </label>
+            <select id="reputation" name="reputation" class="input-larger" required>
+                <option value="Sole Survivor">Sole Survivor</option>
+                <option value="War Hero">War Hero</option>
+                <option value="Ruthless">Ruthless</option>
+            </select>
+        </section> 
+        <section class="horizontal-space">
+            <label for="class" name="class">Class: </label>
+            <select id="class" name="class" class="input-larger" required>
+                <option value="Soldier" name="class">Soldier</option>
+                <option value="Engineer" name="class">Engineer</option>
+                <option value="Adept" name="class">Adept</option>
+                <option value="Infiltrator" name="class">Infiltrator</option>
+                <option value="Sentinel" name="class">Sentinel</option>
+                <option value="Vanguard" name="class">Vanguard</option>
+            </select>
+        </section>
+        <br>
+        <g>
+            <input type="radio" class="radio" id="original" name="gameType" value="Classic" checked>
+            <label for="original">Classic</label>
+
+            <input type="radio" class="radio" id="legendary" name="gameType" value="Legendary">
+            <label for="legendary">Legendary</label>
+        </g>
+        <section class="horizontal-space">
+            <section>
+                <label>Paragon: </label>
+                <input type="range" min="1" max="100" id="paragon" value="1" class="slider">
+                <label>Value: </label><label id="number_from_paragon_slider">1</label>
+            </section>
+            <section>
+                <label>Renegade: </label>
+                <input type="range" min="1" max="100" id="renegade" value="1" class="slider">
+                <label>Value: </label><label id="number_from_renegade_slider">1</label>
+            </section>
+        </section>
+        <label>Level: </label>
+        <input type="range" min="1" max="60" class="slider" id="level" value="1" >
+        <label>Value: </label><label id="number_from_slider">1</label>
+        <!-- don't forget to add javascript to above so people can tell what value it's at https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
+        <br>
+        <label>Romance: </label>
+        <select id="romance" name="romance" class="input-larger">
+
+        </select>
+        <br>
+        <label>Face Code: </label><input type="text" id="face_code" class="input-larger">
+        <br>
+        <input type="submit" class="input-larger" id="createButton">
+    </form>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="character-creation.js"></script>
+</body>
+</html>
