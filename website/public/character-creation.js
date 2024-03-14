@@ -141,7 +141,7 @@ const displayCharacter = (characters) => {
 
     console.log(character)
 
-    console.log(character.romanced)
+    console.log("romanced", character.romanced)
 
     const legendaryOrClassic = character.game_type
 
@@ -180,12 +180,6 @@ const displayCharacter = (characters) => {
             break
         }
     }
-    const romance = character.romanced
-    for (const radioRomance of romanceRadios) {
-        if (radioRomance.value === romance) {
-            radioRomance.checked = true
-        }
-    }
 
     console.log('dolphin: ', character)
 
@@ -203,21 +197,18 @@ const displayCharacter = (characters) => {
     console.log('level: ', character.char_level)
     levelLabel.innerText = character.char_level
 
-    console.log('charcter level: ', character.level)
+    console.log('charcter level: ', character.char_level)
 
+    console.log(character.romanced)
 
-    const romancedSelect = document.querySelector('select[name="romance"]');
-    if (romancedSelect) {
-        const options = romancedSelect.options;
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].value === character.npc_name) {
-                options[i].selected = true;
-                break; // Stop looping once the option is found
-            }
-        }
-    } else {
-        console.error('Select element with name "romance" not found.');
+    const romancedSelect = document.querySelectorAll('option[name="romance"]');
+
+for (let i = 0; i < romancedSelect.length; i++) {
+    if (romancedSelect[i].value === character.romanced) {
+        romancedSelect[i].selected = true;
     }
+}
+
 
 
     document.getElementById('decision-button').innerHTML = `
@@ -231,29 +222,33 @@ const displayCharacter = (characters) => {
     }
 }
 
-const getCharacter = (body) => {
-    console.trace()
-
-    const { charId, game } = body
-    console.log(`Fetching character with id from character-creation.js: ${charId}`);
-    axios.get(`${baseURLCharacterCreation}character/${charId}`, {
-        params: {
-            game: game 
-        }
-    })
-        .then(res => {
-            const char = res.data;
-            console.log("Received character data:", char);
-            if (char) {
-                console.log(char)
-                displayCharacter(char);
-            } else {
-                console.error("Character data is undefined or null");
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching character data:", error);
-        });
+const getCharacter = async (body) => {
+    return new Promise((resolve, reject) => {
+        console.trace();
+        const { charId, game } = body;
+        console.log(`Fetching character with id from character-creation.js: ${charId}`);
+        axios.get(`${baseURLCharacterCreation}character/${charId}`, {
+                params: {
+                    game: game
+                }
+            })
+            .then(res => {
+                const char = res.data;
+                console.log("Received character data:", char);
+                if (char) {
+                    console.log(char);
+                    displayCharacter(char);
+                    resolve(char); // Resolve the promise with the character data
+                } else {
+                    console.error("Character data is undefined or null");
+                    reject(new Error("Character data is undefined or null")); // Reject the promise if character data is undefined or null
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching character data:", error);
+                reject(error); // Reject the promise with the error
+            });
+    });
 };
 
 const createCharacter = body => {
@@ -266,19 +261,10 @@ const createCharacter = body => {
             console.log(`characterID in character-creation.js: ${characterId}`);
             document.getElementById('character_class_game_id').value = characterId;
             console.log('id="character_class_game_id" in chreateCharacter. This makes sense to change here though', character_class_game_id)
-            const games = document.getElementsByName('game')
-
-            let selectedGame;
-            for (let i = 0; i < games.length; i++) {
-                if (games[i].checked) {
-                    // If the radio button is checked, set selectedGame to the value of the checked radio button
-                    selectedGame = games[i].value;
-                    break; // Exit the loop once a checked radio button is found
-                }
-            }
+            const games = document.querySelector('input[name="game"]').value
 
             const bodyObj = {
-                game: selectedGame,
+                game: games,
                 charId: characterId
             }
 
@@ -301,14 +287,14 @@ const createNewGameForCharacter = (characterId, body) => {
             console.log(`characterID in character-creation.js: ${characterId}`);
             const games = document.getElementsByName('game')
 
-            let selectedGame;
-            for (let i = 0; i < games.length; i++) {
-                if (games[i].checked) {
-                    // If the radio button is checked, set selectedGame to the value of the checked radio button
-                    selectedGame = games[i].value;
-                    break; // Exit the loop once a checked radio button is found
-                }
-            }
+            // let selectedGame;
+            // for (let i = 0; i < games.length; i++) {
+            //     if (games[i].checked) {
+            //         // If the radio button is checked, set selectedGame to the value of the checked radio button
+            //         selectedGame = games[i].value;
+            //         break; // Exit the loop once a checked radio button is found
+            //     }
+            // }
 
             console.log('selectedGame: ', selectedGame)
 
@@ -326,16 +312,19 @@ const createNewGameForCharacter = (characterId, body) => {
         });
 }
 
-const updateCharacter = (characterId, body) => {
-    axios.put(`${baseURLCharacterCreation}update-character/${characterId}`, body)
-    .then(response => {
-        console.log('Character updated successfully:', response.data);
-        
-        // Optionally, perform additional actions upon successful update
-    })
-    .catch(error => {
-        console.error('Error updating character:', error);
-        // Optionally, handle errors and display an error message to the user.
+const updateCharacter = async (characterId, body) => {
+    return new Promise((resolve, reject) => {
+        axios.put(`${baseURLCharacterCreation}update-character/${characterId}`, body)
+            .then(response => {
+                console.log('Character updated successfully:', response.data);
+                // Optionally, perform additional actions upon successful update
+                resolve(response.data); // Resolve the promise with the response data
+            })
+            .catch(error => {
+                console.error('Error updating character:', error);
+                // Optionally, handle errors and display an error message to the user.
+                reject(error); // Reject the promise with the error
+            });
     });
 }
 
@@ -509,6 +498,13 @@ const addDifferentGameToCharacter = (event) => {
 
     }
 
+    let bodyObjForGetChar = {
+
+        game: game,
+        charId: charId
+
+    }
+
     createNewGameForCharacter(charId, bodyObj)
 
     // edit Button
@@ -554,7 +550,7 @@ const addDifferentGameToCharacter = (event) => {
     decisionArea.appendChild(decisionButton)
 
     console.log('Creating decisions button');
-    getCharacter()
+    getCharacter(bodyObjForGetChar)
     
 }
 
@@ -571,6 +567,7 @@ const editCurrentCharacter = async (event) => {
     const game = document.querySelector('input[name="game"]:checked').value;
 
     console.log(`face_code in editCurrentChracter: ${faceCode}`)
+    console.log('game checked: ', game)
 
     let bodyObj = {
         char_id: charId,
@@ -584,9 +581,14 @@ const editCurrentCharacter = async (event) => {
 
     }
 
+    let getCharBodyObj = {
+        game: game,
+        charId: charId
+    }
+
     await updateCharacter(charId, bodyObj);
 
-    getCharacter(charId)
+    await getCharacter(getCharBodyObj)
 
 }
 
@@ -684,6 +686,7 @@ const gameChanged = async () => {
                     classSelection.id = "class"
                     classSelection.name = "class"
                     classSelection.required = true
+                    classSelection.classList.add("input-larger")
 
                     classSelection.innerHTML = `
                         <option value="Soldier" name="class">Soldier</option>
@@ -877,35 +880,23 @@ const openingPage = () => {
         currentClass.parentNode.replaceChild(classSelection, currentClass);
         console.log('This character exists! ID: ' + characterIdCharacter);
     
-        (async () => {
-            const number = document.getElementById('character_class_game_id').value
-            console.log('id="character_class_game_id" in openingPage ', number)
+        const number = document.getElementById('character_class_game_id').value
+        console.log('id="character_class_game_id" in openingPage ', number)
+
+        const bodyObj = {
+            charId: number,
+            game: 1
+        };
 
 
-            for (let i = 0; i < 3; i++) {
-                const iPlusOne = i + 1;
-                const bodyObj = {
-                    charId: number,
-                    game: iPlusOne
-                };
+        if (number !== -1) {
+
+            getCharacter(bodyObj);
+        }
+
         
-                try {
-                    const characterInGame = await checkCharacterForGame(bodyObj);
-                    console.log(typeof characterInGame);
-                    console.log(i);
-                    if (characterInGame === true) {
-                        console.log('this is true');
-                        console.log(characterIdCharacter);
-                        await getCharacter(bodyObj);
-                        // Whatever logic you want to execute after getting the character
-                    } else {
-                        // Logic when character is not in the game
-                    }
-                } catch (error) {
-                    // Handle errors if any
-                }
-            }
-        })();
+            
+
         
     
         const editButtonCreation = document.createElement('button');
